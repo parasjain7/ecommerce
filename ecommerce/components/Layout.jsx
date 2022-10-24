@@ -3,10 +3,11 @@ import Head from 'next/head';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-const Layout = ( {children }) => {
+const Layout = ( {children} ) => {
   return (
     <div className='layout'>
       <Head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
         <title>Paras's Store</title>
       </Head>
       <header>
