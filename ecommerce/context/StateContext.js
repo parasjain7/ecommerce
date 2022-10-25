@@ -17,7 +17,7 @@ export const StateContext = ({ children }) => {
 
     useEffect(() => {
         router.events.on('routeChangeStart', () => {
-        setProgress(40);
+        setProgress(20);
     })
         router.events.on('routeChangeComplete', () => {
         setProgress(100);
