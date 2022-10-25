@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {toast} from 'react-hot-toast';
 
 const Context = createContext();
-
-
 
 export const StateContext = ({ children }) => {
     const [showCart, setShowCart] = useState(false);
@@ -11,6 +10,25 @@ export const StateContext = ({ children }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantities, setTotalQuantities] = useState(0);
     const [qty, setQty] = useState(1);
+
+    const [progress, setProgress] = useState(0)
+
+    const router = useRouter();
+
+    useEffect(() => {
+        router.events.on('routeChangeStart', () => {
+        setProgress(40);
+    })
+        router.events.on('routeChangeComplete', () => {
+        setProgress(100);
+    })
+    
+        return () => {
+        
+        }
+    }, [])
+    
+
 
     let foundProduct;
     let index;
@@ -79,8 +97,7 @@ export const StateContext = ({ children }) => {
     }
 
 
-    return (
-
+    return <>
         <Context.Provider 
         value={{
                 showCart,
@@ -96,11 +113,14 @@ export const StateContext = ({ children }) => {
                 onRemove,
                 setCartItems,
                 setTotalPrice,
-                setTotalQuantities
+                setTotalQuantities,
+                progress,
+                setProgress
+
         }}>
             {children}
         </Context.Provider>
-    )
+            </>
 }
 
 export const useStateContext = () => useContext(Context);
